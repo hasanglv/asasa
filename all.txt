@@ -1,0 +1,358 @@
+//Palindrome
+
+#include <iostream>
+
+using namespace std;
+int main() {
+    int n =0, num_of_digits = 0, temp = 0;
+    cin >> n;
+    temp = n;
+    while(temp){
+        num_of_digits++;
+        temp/=10;
+    }
+    temp = n;
+    int A[num_of_digits];
+    for(int i=num_of_digits-1; i>=0; i--){
+         temp /= 10;
+        A[i] = temp%10;
+        temp /= 10;
+    }
+    cout<<"Number of digits of N: " << num_of_digits << endl;
+    cout<<"Elements in array: ";
+    for(int k=0; k<num_of_digits; k++){
+        cout<<A[k]<<" ";
+    }
+    int len = num_of_digits;
+    bool isPalindrome = true;
+    for(int i=0; i<len/2; i++){
+        if(A[i]!=A[len-1-i]){
+            isPalindrome = false;
+            break;
+        }
+    }
+
+    if(isPalindrome) {
+        cout<<endl<<n<<" is Palindrome"<<endl;
+    }
+    else{
+        cout<<endl<<n<<" is NOT Palindrome"<<endl;
+    }
+    return 0;
+}
+
+
+
+
+//Prime
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+// n = 13
+using namespace std;
+bool isOdd(int x);
+bool isPrime(int x);
+int main() {
+    int  a=0, b=0;
+    cin >> a >> b ;
+    for(int i=a ; i<=b; i++) {
+        cout << i << ": ";
+        if (isPrime(i)) cout << "prime\n";
+        else cout << "not prime\n";
+    }
+    return 0;
+}
+
+bool isPrime(int x){
+    for(int i=2; i<x/2; i++){
+        if(x%i==0) return false;
+    }
+    return true;
+}
+
+bool isOdd(int x){
+    return (x%2==1);
+}
+
+
+//Mirror Prime
+
+#include <iostream>
+using namespace std;
+
+
+bool isMirrorPrime(int n);
+bool isPrime(int n);
+int reverseNumber(int n);
+int numOfDigits(int n);
+int main() {
+    int n;
+    cout<<"Enter number: ";
+    cin>>n;
+    if(isMirrorPrime(n)) cout<<n<<": Mirror Prime\n";
+    else cout<<n<<": NOT Mirror Prime\n";
+
+    return 0;
+}
+bool isMirrorPrime(int n){
+    if(isPrime(n)==false) return false;
+
+    int r_n = reverseNumber(n);
+    if(isPrime(r_n)==false) return false;
+    return true;
+}
+
+
+bool isPrime(int n)
+{
+    for(int i=2; i<n/2; i++)
+    {
+        if(n%i==0) return false;
+    }
+    return true;
+}
+
+int reverseNumber(int n){
+    int result = 0;
+    int t = numOfDigits(n)-1;
+    int cof = 1;
+    while(t>0){
+        cof *= 10;
+        t--;
+    }
+    while(n>0){
+        result += ((n%10) * cof);
+        n/=10;
+        cof/=10;
+    }
+    return result;
+}
+
+int numOfDigits(int n){
+    int res= 0;
+    while(n){
+        res++;
+        n/=10;
+    }
+    return res;
+}
+
+
+//decimal to binary  === binary to decimal
+#include <iostream>
+using namespace std;
+
+#include <iostream>
+using namespace std;
+long long int DesimalToBInary(int n1);
+int BinaryToDesimal(long long int n2);
+
+int main(){
+
+    int n1=0;
+    cout<<"Enter Decimal Number: ";
+    cin>>n1;
+    cout<<"Dsimal To Binary: "<<DesimalToBInary(n1)<<endl;
+    cout<<"~~~~~~~~~~"<<endl;
+    int n2=0;
+    cout<<"Enter Binary Number: ";
+    cin>>n2;
+    cout<<"Binary To Desimal: "<<BinaryToDesimal(n2)<<endl;
+    return 0;
+}
+long long int DesimalToBInary(int n1){
+    int cof=1,rem=0,result=0;
+    int n=n1;
+    while(n>0){
+        rem=n%2;
+        result=result+cof*rem;
+        cof=cof*10;
+        n=n/2;
+
+    }
+    return result;
+}
+ int BinaryToDesimal(long long int n2){
+     int n=n2,result=0,cof=1,rem=0;
+     while(n) {
+         rem = n % 10;
+         result += cof * rem;
+         cof *= 2;
+         n /= 10;
+     }
+     return result;
+ }
+//3 sual
+#include <iostream>
+using namespace std;
+
+bool isPalindrome(string n);
+bool isTriangle(int a, int b, int c);
+string convertDate(int day, int month, int year);
+int absolute(int n);
+string convertMonth(int m);
+//
+int main() {
+
+    // Task 1
+    string number;
+    cout<<"\n~~~~~ Task 1 ~~~~~";
+    cout<<endl<<"Enter number for checking Palindrome: ";
+    cin >> number;
+    if(isPalindrome(number)) cout<<number<<": Palindrome\n";
+    else cout<<number<<": NOT Palindrome\n";
+
+    // Task 2
+    int a=0, b=0, c=0; //sides of triangle
+    cout<<"\n~~~~~ Task 2 ~~~~~";
+    cout<<endl<<"Enter sides of triangle: \n";
+    cout<<" a: "; cin >> a;
+    cout<<"b: "; cin >> b;
+    cout<<"c: "; cin >> c;
+    if(isTriangle(a,b,c)) cout<<"A, B, C CAN create Triangle\n";
+    else cout<<"A, B, C  CANNOT create Triangle\n";
+
+    // Task 3
+    int day=0, month=0, year=0; //sides of triangle
+    cout<<"\n~~~~~ Task 3 ~~~~~";
+    cout<<endl<<"Enter current date: \n";
+    cout<<" day: "; cin >> day;
+    cout<<"month: "; cin >> month;
+    cout<<"year: "; cin >> year;
+    cout<<"Result: " << convertDate(day, month, year);
+    return 0;
+}
+
+bool isPalindrome(string word){
+    if(word.length()==0) {
+        cout<<"\nPlease enter valid input!!\n";
+        return false;
+    }
+
+    int len = word.length();
+    for(int i=0; i<len/2; i++){
+        if(word[i] != word[len-1-0])
+            return false;
+    }
+    return true;
+}
+
+bool isTriangle(int a, int b, int c){
+    if(a<=0 || b<=0 || c<=0) {
+        cout<<"\nPlease enter valid input!!\n";
+        return false;
+    }
+    if( (b>=(a+c)) || (a>=(b+c)) || (c>=(a+b)))
+    {
+        return false;
+    }
+    if( (a<=absolute(c-b)) || (b<=absolute(c-a)) || (c<=absolute(b-a)))
+    {
+        return false;
+    }
+
+    return true;
+}
+//string + int
+string convertDate(int day, int month, int year){
+    string result = convertMonth(month) + " " + to_string(day) +
+                    ", " + to_string(year) + ".";
+    return result;
+}
+
+int absolute(int n){
+    if(n<0) return n*(-1);
+    return n;
+}
+
+string convertMonth(int m){
+    if(m<1 || m>12) {
+        cout<<"Invalid month passed!!\n";
+        return " ";
+    }
+    switch (m) {
+        case 1: return "January";
+        case 2: return "February";
+        case 3: return "March";
+        case 4: return "April";
+        case 5: return "May";
+        case 6: return "June";
+        case 7: return "July";
+        case 8: return "August";
+        case 9: return "September";
+        case 10: return "October";
+        case 11: return "November";
+        case 12: return "December";
+    }
+}
+
+
+
+//number of digits 
+#include <iostream>
+
+using namespace std;
+int main() {
+    int n = 0,  num_of_digits = 0, temp = 0;
+    cin >> n;
+    temp = n;
+    while (temp) {
+        num_of_digits++;
+        temp /= 10;
+    }
+    temp = n;
+    const int len = num_of_digits;
+    int A[len];
+    for (int i = num_of_digits - 1; i >= 0; i--) {
+        A[i] = temp % 10;
+        temp /= 10;
+    }
+    cout << "Number of digits of N: " << num_of_digits << endl;
+    cout << "Elements in array: ";
+    for (int k = 0; k < num_of_digits; k++) {
+        cout << A[k] << " ";
+    }
+
+    return 0;
+}
+//Sort array
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
+
+int main() {
+    srand (time(NULL));
+    int len=0;
+    cout<<"Enter number of elements: ";
+    cin >> len;
+    int A[len];
+    for(int i=0; i<len; i++) {
+        A[i] = rand()%100;
+    }
+
+    cout<<"\nGenerated Array:\n";
+    for(int i=0; i<len; i++) {
+        cout<<A[i]<<" ";
+    }
+    for(int i=0; i<len; i++){
+        int min = A[i];
+        int min_index = i;
+        for(int j=min_index+1; j<len; j++){
+            if(min<A[j]){
+                min = A[j];
+                min_index = j;
+            }
+        }
+        int t =A[i];
+        A[i] =A[min_index];
+        A[min_index] =t;
+    }
+
+    cout<<"\nSorted Array:\n";
+    for(int i=0; i<len; i++) {
+        cout<<A[i]<<" ";
+    }
+    return 0;
+}
